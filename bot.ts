@@ -39,7 +39,7 @@ hearManager.hear(/^\/fist_round(?:\s+(\d+(?:\.\d+)?))?(?:\s+(\w+))?$/i, async (c
     const userInput = context.$match[1];
     const lineWidth = userInput ? parseFloat(userInput) : roundSize; 
     const userColor = context.$match[2];
-    const lineColor = userColor === 'white' ? 'white' : roundColor; // По умолчанию черный цвет
+    const lineColor = userColor === 'white' ? 'white' : roundColor; 
 
     if (context.hasAttachments('photo')) {
       const photo = context.getAttachments('photo')[0];
