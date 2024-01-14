@@ -70,7 +70,7 @@ export const roundSize = 10
 ## **Автор**
 Stepan Mamashin/S-Mamashin
 
-## **Link's**
+## **Ссылки**
 [BLASTHACK](https://www.blast.hk/threads/183886/) topic <br>
 [VK](https://vk.com/fistmaker) bot <br>
 [TG](https://t.me/FistMakerBot) bot <br>
