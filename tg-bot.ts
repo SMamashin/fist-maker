@@ -1,7 +1,7 @@
 import { Telegram, MediaSource } from 'puregram';
 import { createCanvas, loadImage, CanvasRenderingContext2D} from 'canvas';
-import { tokenTG, roundSize, roundColor } from './config';
-import { phrasesTG } from './prhases';
+import { tokenTG, roundSize, roundColor } from './config/config';
+import { phrasesTG } from './phrases/prhases';
 
 const bot = new Telegram({
   token: tokenTG

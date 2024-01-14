@@ -1,10 +1,10 @@
 import { VK } from 'vk-io';
 import { HearManager } from '@vk-io/hear'
 import { createCanvas, loadImage, CanvasRenderingContext2D } from 'canvas';
-import { phrasesVK } from './prhases';
-import { tokenVK } from './config';
-import { squareSize, squareColor, squareRadius } from './config';
-import { roundSize, roundColor } from './config';
+import { phrasesVK } from './phrases/prhases';
+import { tokenVK } from './config/config';
+import { squareSize, squareColor, squareRadius } from './config/config';
+import { roundSize, roundColor } from './config/config';
 
 const vk = new VK({
   token: tokenVK
