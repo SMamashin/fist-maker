@@ -1,3 +1,4 @@
+// stable verison vk
 import { VK } from 'vk-io';
 import { HearManager } from '@vk-io/hear'
 import { createCanvas, loadImage, CanvasRenderingContext2D } from 'canvas';
