@@ -101,6 +101,7 @@ span {
   input[type='number'] {
     max-width: 6%;
     font-size: 18px;
+    text-align: center;
   }
   input[type='color'] {
     max-width: 6%;
@@ -146,4 +147,64 @@ span {
 
 .v {
   color: #585f6a;
+}
+
+.tooltipWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltipButton {
+  cursor: not-allowed;
+  text-decoration: none;
+  color: #fff;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  background-color: grey;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.9s ease;
+}
+
+.tooltipButton:disabled {
+  opacity: 0.5;
+}
+
+.tooltipText {
+  visibility: hidden;
+  opacity: 0;
+  width: 120px;
+  background-color: #ffffff;
+  color: #000;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: 50%; /* Выравниваем по вертикали */
+  left: 100%; /* Позиционируем справа от кнопки */
+  margin-left: 10px;
+  transform: translateY(50%) translateX(100px); /* Смещаем вверх на 50% от высоты элемента и вправо на 10px */
+  transition: visibility 0s, opacity 0.5s ease, transform 0.5s ease; /* Плавный переход */
+}
+
+.tooltipWrapper:hover .tooltipText {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(-60%) translateX(0px); 
+  transition-delay: 0s, 0s, 0s;
+}
+
+@media only screen and (max-width: 768px) {
+  .tooltipText {
+    top: auto; /* Сбросить верхнее позиционирование */
+    bottom: 100%; /* Расположить подсказку под кнопкой */
+    left: 50%; /* Выравнивание подсказки по центру кнопки по горизонтали */
+    transform: translateX(-50%) translateY(10px); /* Смещение подсказки, чтобы она была центрирована и немного ниже кнопки */
+    margin-left: 0; /* Сбросить дополнительное смещение слева */
+  }
+
+  .tooltipWrapper:hover .tooltipText {
+    transform: translateX(-50%) translateY(0px); /* Подсказка появляется прямо под кнопкой */
+  }
 }
