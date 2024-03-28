@@ -1,8 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './scss/FistMaker.module.scss';
 
+interface FixedDimensions {
+    width: number;
+    height: number;
+  }
+
 const FistMaker: React.FC = () => {
-  const fixedDimensions = { width: 256, height: 256 };
+  const fixedDimensions: FixedDimensions = { width: 256, height: 256 };
   const [borderType, setBorderType] = useState<string>('round');
   const [borderThickness, setBorderThickness] = useState<number>(5);
   const [borderColor, setBorderColor] = useState<string>('#000000');
@@ -49,6 +54,7 @@ const FistMaker: React.FC = () => {
     context.closePath();
     context.stroke();
   }
+  
   const updateImagePreview = (file: File) => {
     const reader = new FileReader();
     const clearImage = true;
@@ -108,8 +114,9 @@ const FistMaker: React.FC = () => {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (files && files[0]) {
-      updateImagePreview(files[0]);
+    if (files && files.length > 0) {
+      const file = files[0];
+      updateImagePreview(file);
     }
   };
 
@@ -124,8 +131,8 @@ const FistMaker: React.FC = () => {
         <div className={styles.group}>
           <label htmlFor="borderType">Вариант обводки:</label>
           <select id="borderType" value={borderType} onChange={(e) => setBorderType(e.target.value)}>
-            <option value="round">Круглая</option>
-            <option value="square">Квадратная</option>
+            <option value="round">Круглая ⚪ </option>
+            <option value="square">Квадратная 🔲 </option>
           </select>
         </div>
         {borderType === 'round' && (
@@ -138,18 +145,23 @@ const FistMaker: React.FC = () => {
             <label htmlFor="borderColor">Цвет обводки: </label>
             <input type="color" id="borderColor" value={borderColor} onChange={(e) => setBorderColor(e.target.value)} />
         </div>
+        <div className={styles.tooltipWrapper}>
+        <button className={styles.tooltipButton} disabled>
+         ✨ Сгенерировать фист ✨
+        </button>
+        <span className={styles.tooltipText}> 🛠️ Скоро...</span>
+      </div>
       </div>
       <img id="outputImage" src={outputImage} alt="Загрузите картинку" className={styles.outputImage} />
       <div className={styles.imageInfo}>{outputImage && 'fist.png 256x256'}</div>
       <a ref={downloadLinkRef} className={styles.downloadLink} download="fist.png" style={{ display: outputImage ? 'block' : 'none' }}>
         Скачать fist.png
       </a>
-      <span>За основу был взят вариант от Digger Man: <a href="https://github.com/DiggerMan-cpp/DiggerMan-cpp.github.io/blob/main/fist.html">Digger Fist Maker</a></span>
-      <span>Выполнено на React TypeScript © FistMaker 2024</span>
+      <span>Выполнено на React & TypeScript 💙 © FistMaker 2024 </span>
       <span>Используйте так же в: <a href='https://vk.com/fistmaker'>ВКонтакте</a> & <a href='https://t.me/FistMakerBot'>Telegram</a></span>
       <span>Github: <a href='https://github.com/SMamashin/fist-maker'>github.com/SMamashin/fist-maker</a></span>
       <span>BlastHack: <a href='https://www.blast.hk/threads/200594/'>blast.hk/threads/200594/</a></span>
-      <span className={styles.v}>v1.0.3-alpha</span>
+      <span className={styles.v}>v1.0.5-alpha 🛠️</span>
     </div>
   );
 };
