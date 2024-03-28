@@ -91,17 +91,36 @@ hearManager.hear('/fist', async (context) => {
   }
 });
 
-hearManager.hear(/^привет|начать$/is, async (context) => {
+hearManager.hear(/^привет|начать|start|старт$/is, async (context) => {
   if (context.isDM) {
     await context.send(phrasesVK[0]);
+    await context.send(phrasesVK[3])
+    const photoId = 'photo-224244475_456239023';
+    try {
+      await context.send({
+          message: "Обратите внимание, на пример использования!",
+          attachment: photoId
+      });
+    } catch (error) {
+        console.error(error);
+    }
   }
 });
 
 hearManager.hear("/help", async (context) =>{
   if (context.isDM) {
     await context.send(phrasesVK[0])
+    const photoId = 'photo-224244475_456239023';
+    try {
+      await context.send({
+          message: 'Обратите внимание на пример использования!',
+          attachment: photoId
+      });
+    } catch (error) {
+        console.error(error);
+    }
   }
-})
+});
 
 hearManager.hear(/.*/is, async (context) =>{
   if (context.isDM) {
