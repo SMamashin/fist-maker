@@ -68,7 +68,6 @@ span {
 .group {
   margin: 10px 0;
   width: 100%;
-  
   label {
     display: block;
     margin-bottom: 5px;
@@ -121,13 +120,13 @@ span {
 
 .controls {
   width: 100%;
-  
   .group {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 }
+
 
 .downloadLink {
   display: none;
@@ -149,62 +148,135 @@ span {
   color: #585f6a;
 }
 
-.tooltipWrapper {
-  position: relative;
+.sendError {
   display: inline-block;
+  color: #cdd9ff;
+
+  &:hover {
+    text-decoration: underline #fff;
+    cursor: pointer;
+  }
 }
 
-.tooltipButton {
-  cursor: not-allowed;
-  text-decoration: none;
-  color: #fff;
-  margin-top: 10px;
-  margin-bottom: 15px;
-  background-color: grey;
-  padding: 10px 20px;
+.borderThicknessSlider {
+  -webkit-appearance: none;
+  width: 15%;
+  height: 7px;
   border-radius: 5px;
-  transition: background-color 0.9s ease;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+  margin: 10px 0px 10px 0px;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #546e7a;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border: none;
+    border-radius: 50%;
+    background: #2e4560;
+    cursor: pointer;
+  }
+
+  &:active::-webkit-slider-thumb {
+    background: #3b5a7e;
+  }
+
+  &:active::-moz-range-thumb {
+    background: #2e4560;
+  }
 }
 
-.tooltipButton:disabled {
-  opacity: 0.5;
-}
-
-.tooltipText {
-  visibility: hidden;
-  opacity: 0;
-  width: 120px;
-  background-color: #ffffff;
-  color: #000;
+.borderThicknessValue {
+  display: inline-block;
+  border: 1px solid #546e7a;
+  border-radius: 25%;
+  padding: 5px;
+  background-color: #39404a;
   text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 100%;
   margin-left: 10px;
-  transform: translateY(50%) translateX(100px);
-  transition: visibility 0s, opacity 0.5s ease, transform 0.5s ease;
+  font-size: 14px;
+  color: #fff;
 }
 
-.tooltipWrapper:hover .tooltipText {
-  visibility: visible;
-  opacity: 1;
-  transform: translateY(-60%) translateX(0px); 
-  transition-delay: 0s, 0s, 0s;
-}
-
-@media only screen and (max-width: 768px) {
-  .tooltipText {
-    top: auto; 
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    margin-left: 0; 
-  }
-
-  .tooltipWrapper:hover .tooltipText {
-    transform: translateX(-50%) translateY(0px);
+@media (max-width: 768px) {
+  .borderThicknessSlider {
+    width: 75%; 
   }
 }
+
+// -- Generate fist Button --
+
+// .tooltipWrapper {
+//   position: relative;
+//   display: inline-block;
+// }
+
+// .tooltipButton {
+//   cursor: not-allowed;
+//   text-decoration: none;
+//   color: #fff;
+//   margin-top: 10px;
+//   margin-bottom: 15px;
+//   background-color: grey;
+//   padding: 10px 20px;
+//   border-radius: 5px;
+//   transition: background-color 0.9s ease;
+// }
+
+// .tooltipButton:disabled {
+//   opacity: 0.5;
+// }
+
+// .tooltipText {
+//   visibility: hidden;
+//   opacity: 0;
+//   width: 120px;
+//   background-color: #ffffff;
+//   color: #000;
+//   text-align: center;
+//   border-radius: 6px;
+//   padding: 5px 0;
+//   position: absolute;
+//   z-index: 1;
+//   top: 50%;
+//   left: 100%;
+//   margin-left: 10px;
+//   transform: translateY(50%) translateX(100px);
+//   transition: visibility 0s, opacity 0.5s ease, transform 0.5s ease;
+// }
+
+// .tooltipWrapper:hover .tooltipText {
+//   visibility: visible;
+//   opacity: 1;
+//   transform: translateY(-60%) translateX(0px); 
+//   transition-delay: 0s, 0s, 0s;
+// }
+
+// @media only screen and (max-width: 768px) {
+//   .tooltipText {
+//     top: auto; 
+//     bottom: 100%;
+//     left: 50%;
+//     transform: translateX(-50%) translateY(10px);
+//     margin-left: 0; 
+//   }
+
+//   .tooltipWrapper:hover .tooltipText {
+//     transform: translateX(-50%) translateY(0px);
+//   }
+// }

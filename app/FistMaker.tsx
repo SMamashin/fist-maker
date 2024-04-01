@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './scss/FistMaker.module.scss';
+import ErrorModal from './ErrorModal';
 
 interface FixedDimensions {
     width: number;
@@ -8,12 +9,15 @@ interface FixedDimensions {
 
 const FistMaker: React.FC = () => {
   const fixedDimensions: FixedDimensions = { width: 256, height: 256 };
+  const imageInputRef = useRef<HTMLInputElement>(null);
+  const downloadLinkRef = useRef<HTMLAnchorElement>(null);
+  const handleOpenErrorModal = () => setShowErrorModal(true);
+  const handleCloseErrorModal = () => setShowErrorModal(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
   const [borderType, setBorderType] = useState<string>('round');
   const [borderThickness, setBorderThickness] = useState<number>(5);
   const [borderColor, setBorderColor] = useState<string>('#000000');
   const [outputImage, setOutputImage] = useState<string>('');
-  const imageInputRef = useRef<HTMLInputElement>(null);
-  const downloadLinkRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     if (imageInputRef.current?.files && imageInputRef.current.files.length > 0) {
@@ -30,16 +34,36 @@ const FistMaker: React.FC = () => {
     }
   }, [borderType]);
 
-  const handleBorderThicknessChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value === '') {
-      setBorderThickness(value as unknown as number); 
-    } else {
-      const intValue = Math.max(1, parseInt(value, 10));
-      if (!isNaN(intValue)) {
-        setBorderThickness(intValue);
+  // Send Report function
+  const handleErrorModalSubmit = async (email: string, message: string): Promise<void> => {
+    try {
+      const response = await fetch('https://fistmaker.ru/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, message }),
+      });
+      if (!response.ok) {
       }
+      handleCloseErrorModal();
+    } catch (error) {
     }
+  };
+
+  const handleBorderThicknessChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+    let intValue = value === '' ? 0 : parseInt(value, 10);
+  
+    if (isNaN(intValue) || intValue < 1) {
+      intValue = 1;
+    } else if (borderType === 'square' && intValue > 80) {
+      intValue = 80;
+    } else if (borderType === 'round' && intValue > 35) {
+      intValue = 35;
+    }
+  
+    setBorderThickness(intValue);
   };
 
   function drawSquareOutline(context: CanvasRenderingContext2D, size: number, lineWidth: number, lineColor: string, cornerRadius: number) {
@@ -135,24 +159,35 @@ const FistMaker: React.FC = () => {
             <option value="square">Квадратная 🔲 </option>
           </select>
         </div>
-        {borderType === 'round' && (
-          <div className={styles.group}>
-            <label htmlFor="borderThickness">Толщина обводки:</label>
-            <input type="number" id="borderThickness" value={borderThickness} min="1" onChange={handleBorderThicknessChange} />
+        <div className={styles.group}>
+        <label htmlFor="borderThickness" className="borderThicknessLabel">
+          Толщина обводки:
+          <div className={styles.borderThicknessValue}>
+            {borderThickness}
           </div>
-        )}
+        </label>
+          <input
+            type="range"
+            id="borderThickness"
+            className={styles.borderThicknessSlider}
+            value={borderThickness}
+            min="1"
+            max={borderType === 'square' ? 80 : 35}
+            onChange={handleBorderThicknessChange}
+          />
+          {/* <div className={styles.borderThicknessValue}>{borderThickness}px</div> */}
+      </div>
         <div className={styles.group}>
             <label htmlFor="borderColor">Цвет обводки: </label>
             <input type="color" id="borderColor" value={borderColor} onChange={(e) => setBorderColor(e.target.value)} />
         </div>
-        <div className={styles.tooltipWrapper}>
-        <button className={styles.tooltipButton} disabled>
-         ✨ Сгенерировать фист ✨
-        </button>
-        <span className={styles.tooltipText}> 🛠️ Скоро...</span>
+        {/* <div className={styles.tooltipWrapper}>
+          <button className={styles.tooltipButton} onClick={generateFist}>
+            ✨ Сгенерировать фист ✨
+          </button>
+        </div> */}
       </div>
-      </div>
-      <img id="outputImage" src={outputImage} alt="Загрузите картинку" className={styles.outputImage} />
+      <img id="outputImage" src={outputImage} alt='Загрузите своё изображение по кнопке выше =)' className={styles.outputImage} />
       <div className={styles.imageInfo}>{outputImage && 'fist.png 256x256'}</div>
       <a ref={downloadLinkRef} className={styles.downloadLink} download="fist.png" style={{ display: outputImage ? 'block' : 'none' }}>
         Скачать fist.png
@@ -161,7 +196,11 @@ const FistMaker: React.FC = () => {
       <span>Используйте так же в: <a href='https://vk.com/fistmaker'>ВКонтакте</a> & <a href='https://t.me/FistMakerBot'>Telegram</a></span>
       <span>Github: <a href='https://github.com/SMamashin/fist-maker'>github.com/SMamashin/fist-maker</a></span>
       <span>BlastHack: <a href='https://www.blast.hk/threads/200594/'>blast.hk/threads/200594/</a></span>
-      <span className={styles.v}>v1.0.5-alpha 🛠️</span>
+      <span className={styles.sendError} onClick={handleOpenErrorModal}>
+        Сообщить об ошибке
+      </span>
+      <ErrorModal show={showErrorModal} onClose={handleCloseErrorModal} onSubmit={handleErrorModalSubmit} />
+      <span className={styles.v}>v1.6.0 🛠️</span>
     </div>
   );
 };

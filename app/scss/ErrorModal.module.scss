@@ -1,0 +1,94 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #2b2b2b;
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  max-width: 600px;
+  width: 80%;
+  
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+input[type='email'],
+textarea {
+  width: calc(100% - 20px);
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #555;
+  background: #222;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.submitButton {
+  padding: 10px 20px;
+  background-color: #3b5a7e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  max-width: 100%;
+  width: auto;
+  
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+}
+
+@media (max-width: 767px) {
+  .modal {
+    width: 90%;
+    max-width: none;
+  }
+
+  .closeButton {
+    top: 5px;
+    right: 5px;
+  }
+
+  .modalContent {
+    margin-top: 5px;
+  }
+
+  .submitButton {
+    margin-top: 5px;
+    max-width: none;
+  }
+}
