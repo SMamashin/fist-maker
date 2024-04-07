@@ -27,13 +27,22 @@
 
 .closeButton {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 3px;
+  right: 3px;
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: #fff;
+  color: #3081dd;
+  border: #1f6fc9 2px solid;
+  border-radius: 10px;
+  padding: 1px 5px 1px 5px;
   cursor: pointer;
+
+  &:hover {
+    color: #68aaf6;
+    background-color: rgba(112, 111, 111, 0.561);
+    border: #1f84f8 2px solid;
+  }
 }
 
 .modalContent {
@@ -51,6 +60,7 @@ textarea {
   background: #222;
   color: #fff;
   border-radius: 4px;
+  resize: none;
 }
 
 .submitButton {
@@ -67,6 +77,12 @@ textarea {
   max-width: 100%;
   width: auto;
   
+  &:hover {
+    background-color: #5486c0;
+    color: rgb(243, 241, 241);
+    border-radius: 6px;
+  }
+
   @media (min-width: 768px) {
     width: 50%;
   }

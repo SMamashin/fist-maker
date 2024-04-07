@@ -1,4 +1,23 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+@font-face {
+  font-family: "SF-Pro-Display-Bold";
+  src:
+    url("../assets/SF-Pro-Display-Bold.otf") format("opentype")
+}
+
+$color-background: #131313; // Фон body
+$color-text: #cdd9ff; // Цвет текста ссылок и некоторых элементов
+$color-text-hover: #fff; // Цвет текста ссылок при наведении
+$color-scrollbar-track: #141414; // Фон трека полосы прокрутки
+$color-scrollbar-thumb: #292828; // Фон ползунка полосы прокрутки
+$color-input-background: #39404a; // Фон для input элементов
+$color-input-border: #718093; // Граница для input элементов
+$color-button-background: #546e7a; // Фон кнопок
+$color-button-hover: #2e4560; // Фон кнопок при наведении
+$color-slider-thumb: #546e7a; // Фон ползунка слайдера
+$color-slider-thumb-active: #3b5a7e; // Фон активного ползунка слайдера
+$color-slider-track: #d3d3d3; // Фон трека слайдера
+$color-notification: #28a745; // Фон уведомлений
+$color-notify-background: #3b5a7e; // Фон блока notify
 
 * {
   box-sizing: border-box;
@@ -8,17 +27,31 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
-  background-color: #131313; 
+  font-family: "SF-Pro-Display-Bold";
+}
+
+body {
+  background-color: $color-background;
+}
+
+body::before {
+  font-family: "SF-Pro-Display-Bold";
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text x="10" y="15" transform="rotate(30)" fill="rgba(255, 255, 255, 0.05)" font-size="20">FistMaker</text></svg>') repeat;
+  pointer-events: none;
 }
 
 a {
-  text-decoration: none;
-  color: #cdd9ff;
+  color: $color-text;
   
   &:hover {
-    text-decoration: underline 2px #fff;
-    transition: text-decoration 0.7s ease;
+    text-decoration: underline 2px $color-text-hover;
   }
 }
 
@@ -27,9 +60,22 @@ span {
   padding: 3.75px;
 }
 
+*::-webkit-scrollbar {
+	width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: $color-scrollbar-track;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: $color-scrollbar-thumb;
+}
+
 .header {
   width: 100%;
   height: 85px;
+  margin-top: 1.25%;
   background: url('../assets/FistMaker.png') no-repeat center center;
   background-size: contain;
   
@@ -57,8 +103,8 @@ span {
   max-width: 100%;
   height: auto;
   margin-top: 20px;
-  border-radius: 10px;
   padding: 15px;
+  border: none;
 }
 
 .imageInfo {
@@ -79,16 +125,17 @@ span {
   input[type='number'],
   select {
     color: #ffffff;
-    background-color: #39404a;
-    border: 1px solid #718093;
+    background-color: $color-input-background;
+    border: 1px solid $color-input-border;
     border-radius: 5px;
     padding: 10px;
     margin: 0 auto;
     display: block;
     width: 15%;
+    outline: none;
     
     &::file-selector-button {
-      background-color: #546e7a;
+      background-color: $color-button-background;
       border: none;
       padding: 10px 15px;
       border-radius: 5px;
@@ -130,7 +177,6 @@ span {
 
 .downloadLink {
   display: none;
-  text-decoration: none;
   color: #fff;
   margin-top: 10px;
   margin-bottom: 15px;
@@ -141,11 +187,60 @@ span {
   
   &:hover {
     background-color: #2e4560;
+    text-decoration: none;
+    cursor: pointer;
   }
+
 }
 
 .v {
   color: #585f6a;
+  img {
+    width: 26px;
+    height: auto;
+    display: inline;
+    vertical-align: middle;
+    padding-left: 4%;
+  }
+}
+
+.prod {
+  img {
+    width: 15px;
+    height: 15px;
+    display: inline;
+    vertical-align: middle;
+  }
+}
+
+.social {
+  img {
+    width: 20px;
+    height: 20px;
+    display: inline;
+    vertical-align: middle;
+    margin: 3px;
+  }
+}
+
+.link {
+  img {
+    width: 18px;
+    height: 18px;
+    display: inline;
+    vertical-align: middle;
+    margin: 3px;
+  }
+}
+
+.linksContainer {
+  text-align: center; 
+}
+
+
+.linkDivider {
+  display: inline;
+  margin: 0px; 
 }
 
 .sendError {
@@ -154,7 +249,23 @@ span {
 
   &:hover {
     text-decoration: underline #fff;
-    cursor: pointer;
+    cursor: grab;
+  }
+}
+
+.linkProject {
+  color: #4a5058;
+  
+  &:hover {
+    cursor: not-allowed;
+  }
+}
+
+.linkFaq {
+  color: #4a5058;
+
+  &:hover {
+    cursor: not-allowed;
   }
 }
 
@@ -163,7 +274,7 @@ span {
   width: 15%;
   height: 7px;
   border-radius: 5px;
-  background: #d3d3d3;
+  background: $color-slider-track;
   outline: none;
   opacity: 0.9;
   transition: opacity 0.2s;
@@ -179,7 +290,7 @@ span {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #546e7a;
+    background: $color-slider-thumb;
     cursor: pointer;
   }
 
@@ -188,16 +299,16 @@ span {
     height: 15px;
     border: none;
     border-radius: 50%;
-    background: #2e4560;
+    background: $color-slider-thumb-active;
     cursor: pointer;
   }
 
   &:active::-webkit-slider-thumb {
-    background: #3b5a7e;
+    background: $color-slider-thumb-active;
   }
 
   &:active::-moz-range-thumb {
-    background: #2e4560;
+    background: $color-slider-thumb-active;
   }
 }
 
@@ -217,6 +328,48 @@ span {
   .borderThicknessSlider {
     width: 75%; 
   }
+}
+
+.notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  padding: 10px 20px;
+  background-color: $color-notification;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: fadeInOut 5s; 
+}
+
+.notify {
+  margin-top: .5%;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  padding: 10px 20px;
+  background-color: $color-notify-background;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: fadeInOut 5s;
+  
+  img {
+    width: 25px;
+    height: auto;
+    display: inline;
+    vertical-align: middle;
+    padding-right: 1%;
+  }
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; }
+  10%, 90% { opacity: 1; }
 }
 
 // -- Generate fist Button --

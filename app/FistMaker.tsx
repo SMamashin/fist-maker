@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import styles from './scss/FistMaker.module.scss';
-import ErrorModal from './ErrorModal';
+import styles from './scss/FistMaker.module.scss'; // scss
+import { version } from '../package.json'; // Version APP
+import ErrorModal from './ErrorModal'; // Modal 
+import axios from 'axios'; // for send report post
 
 interface FixedDimensions {
     width: number;
@@ -8,16 +10,17 @@ interface FixedDimensions {
   }
 
 const FistMaker: React.FC = () => {
+  const e = 'https://fistmaker.ru/assets/emoji/'; // url emojies
   const fixedDimensions: FixedDimensions = { width: 256, height: 256 };
   const imageInputRef = useRef<HTMLInputElement>(null);
   const downloadLinkRef = useRef<HTMLAnchorElement>(null);
-  const handleOpenErrorModal = () => setShowErrorModal(true);
-  const handleCloseErrorModal = () => setShowErrorModal(false);
-  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false); // Report modal state
   const [borderType, setBorderType] = useState<string>('round');
   const [borderThickness, setBorderThickness] = useState<number>(5);
   const [borderColor, setBorderColor] = useState<string>('#000000');
-  const [outputImage, setOutputImage] = useState<string>('');
+  const [outputImage, setOutputImage] = useState<string>(''); 
+  const [isReportSent, setIsReportSent] = useState(false); // Report notify state
+  const [Notification, setNotification] = useState(true); // Just notify state
 
   useEffect(() => {
     if (imageInputRef.current?.files && imageInputRef.current.files.length > 0) {
@@ -34,19 +37,37 @@ const FistMaker: React.FC = () => {
     }
   }, [borderType]);
 
-  // Send Report function
+  useEffect(() => { // just notify hook
+    const timer = setTimeout(() => {
+      setNotification(false);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
+  
+  const handleOpenErrorModal = () => setShowErrorModal(true);
+  const handleCloseErrorModal = () => setShowErrorModal(false);
+
   const handleErrorModalSubmit = async (email: string, message: string): Promise<void> => {
+    if (message.length > 256) {
+      return;
+    }
+  
     try {
-      const response = await fetch('https://fistmaker.ru/', {
-        method: 'POST',
+      const response = await axios.post('https://fistmaker.ru/api/', {
+        email,
+        message
+      }, {
         headers: {
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, message }),
+          'X-Requested-With': 'XMLHttpRequest'
+        }
       });
-      if (!response.ok) {
+  
+      if (response.status === 200) {
+        setIsReportSent(true);
+        setTimeout(() => setIsReportSent(false), 5000);
+        handleCloseErrorModal();
       }
-      handleCloseErrorModal();
     } catch (error) {
     }
   };
@@ -82,37 +103,34 @@ const FistMaker: React.FC = () => {
   const updateImagePreview = (file: File) => {
     const reader = new FileReader();
     const clearImage = true;
-
     reader.onload = function (e) {
       const img = new Image();
       img.src = (e.target as FileReader).result as string;
-
       img.onload = function () {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d')!;
-    
         canvas.width = fixedDimensions.width;
         canvas.height = fixedDimensions.height;
-    
         ctx.fillStyle = clearImage ? 'rgba(0, 0, 0, 0)' : 'white';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.save();
         ctx.beginPath();
-
         if (borderType === 'round') {
-            ctx.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width, canvas.height) / 2 - borderThickness / 2, 0, 2 * Math.PI);
-          } else if (borderType === 'square') {
-            const size = Math.min(canvas.width, canvas.height);
-            const cornerRadius = 20; 
-            drawSquareOutline(ctx, size, borderThickness, borderColor, cornerRadius);
-          }
-
+          ctx.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width, canvas.height) / 2 - borderThickness / 2, 0, 2 * Math.PI);
+        } else if (borderType === 'square') {
+          const size = Math.min(canvas.width, canvas.height);
+          const cornerRadius = 20;
+          drawSquareOutline(ctx, size, borderThickness, borderColor, cornerRadius);
+        }
         ctx.closePath();
         ctx.clip();
-
-        ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height);
+        const aspectRatio = img.width / img.height;
+        const imgResized = {
+          width: aspectRatio >= 1 ? canvas.height * aspectRatio : canvas.width,
+          height: aspectRatio >= 1 ? canvas.height : canvas.width / aspectRatio,
+        };
+        ctx.drawImage(img, -((imgResized.width - canvas.width) / 2), -((imgResized.height - canvas.height) / 2), imgResized.width, imgResized.height);
         ctx.restore();
-
         if (borderThickness > 0) {
           ctx.beginPath();
           if (borderType === 'round') {
@@ -122,17 +140,14 @@ const FistMaker: React.FC = () => {
           ctx.lineWidth = borderThickness;
           ctx.stroke();
         }
-
         const dataUrl = canvas.toDataURL('image/png');
         setOutputImage(dataUrl);
-
         if (downloadLinkRef.current) {
           downloadLinkRef.current.href = dataUrl;
           downloadLinkRef.current.style.display = 'block';
         }
       };
     };
-
     reader.readAsDataURL(file);
   };
 
@@ -148,6 +163,8 @@ const FistMaker: React.FC = () => {
     <div className={styles.container}>
       <h1 className={styles.header}></h1>
       <div className={styles.controls}>
+      {Notification && (<div className={styles.notify}><img src={`${e}fire.gif`}/>{`v${version} - Можете использовать фотографии любых размеров! [Beta]`}</div>)}
+      {isReportSent && (<div className={styles.notification}>Ваше сообщение отправлено! Спасибо.</div>)}
         <div className={styles.group}>
           <label htmlFor="imageInput">Выберите картинку:</label>
           <input ref={imageInputRef} type="file" id="imageInput" accept="image/*" onChange={handleImageChange} />
@@ -187,20 +204,26 @@ const FistMaker: React.FC = () => {
           </button>
         </div> */}
       </div>
-      <img id="outputImage" src={outputImage} alt='Загрузите своё изображение по кнопке выше =)' className={styles.outputImage} />
+      <img id="outputImage" src={outputImage} alt='Загрузите своё изображение' className={styles.outputImage} />
       <div className={styles.imageInfo}>{outputImage && 'fist.png 256x256'}</div>
       <a ref={downloadLinkRef} className={styles.downloadLink} download="fist.png" style={{ display: outputImage ? 'block' : 'none' }}>
         Скачать fist.png
       </a>
-      <span>Выполнено на React & TypeScript 💙 © FistMaker 2024 </span>
-      <span>Используйте так же в: <a href='https://vk.com/fistmaker'>ВКонтакте</a> & <a href='https://t.me/FistMakerBot'>Telegram</a></span>
-      <span>Github: <a href='https://github.com/SMamashin/fist-maker'>github.com/SMamashin/fist-maker</a></span>
-      <span>BlastHack: <a href='https://www.blast.hk/threads/200594/'>blast.hk/threads/200594/</a></span>
-      <span className={styles.sendError} onClick={handleOpenErrorModal}>
-        Сообщить об ошибке
-      </span>
       <ErrorModal show={showErrorModal} onClose={handleCloseErrorModal} onSubmit={handleErrorModalSubmit} />
-      <span className={styles.v}>v1.6.0 🛠️</span>
+      <span className={styles.prod}><img src={`${e}ts.svg`}/> + <img src={`${e}react.svg`}/> + <img src={`${e}vite.svg`}/> = © FistMaker 💙</span>
+      <div className={styles.linksContainer}>
+        <span className={styles.linkProject}>О проекте</span>
+        <span className={styles.linkDivider}>·</span>
+        <span className={styles.linkFaq}>F.A.Q</span>
+        <span className={styles.linkDivider}>·</span>
+        <span className={styles.sendError} onClick={handleOpenErrorModal}>
+          Сообщить об ошибке
+        </span>
+      </div>
+      <span>Используйте так же в: <a href='https://vk.com/fistmaker'>ВКонтакте</a> & <a href='https://t.me/FistMakerBot'>Telegram</a></span>
+      <span className={styles.link}><img src={`${e}git.png`}/>: <a href='https://github.com/SMamashin/fist-maker'>github.com/SMamashin/fist-maker</a></span>
+      <span className={styles.link}><img src={`${e}bh.png`}/>: <a href='https://www.blast.hk/threads/200594/'>blast.hk/threads/200594/</a></span>
+      <span className={styles.v}>{`v${version}`}<img src={`${e}spin.gif`}/></span>
     </div>
   );
 };
