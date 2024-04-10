@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import styles from './scss/FistMaker.module.scss'; // scss
+import styles from './scss/FistMaker.module.scss';
 import { version } from '../package.json'; // Version APP
-import ErrorModal from './ErrorModal'; // Modal 
-import axios from 'axios'; // for send report post
+import ErrorModal from './ErrorModal'; // Modal Report
+import AboutModal from './AboutModal'; // Modal AboutProject
+import PrivacyPolicy from './PrivacyPolicy';
+import axios from 'axios';
 
 interface FixedDimensions {
     width: number;
@@ -10,11 +12,14 @@ interface FixedDimensions {
   }
 
 const FistMaker: React.FC = () => {
-  const e = 'https://fistmaker.ru/assets/emoji/'; // url emojies
+  const e = 'https://fistmaker.ru/assets/emoji/';
   const fixedDimensions: FixedDimensions = { width: 256, height: 256 };
   const imageInputRef = useRef<HTMLInputElement>(null);
   const downloadLinkRef = useRef<HTMLAnchorElement>(null);
   const [showErrorModal, setShowErrorModal] = useState(false); // Report modal state
+  const [showAboutModal, setShowAboutModal] = useState(false); // AboutProject Modal state
+  const [showPolicyModal, setShowPolicyModal] = useState(false); // Private policy modal
+  const [selectedTab, setSelectedTab] = useState('FistMaker'); // Tab in modal
   const [borderType, setBorderType] = useState<string>('round');
   const [borderThickness, setBorderThickness] = useState<number>(5);
   const [borderColor, setBorderColor] = useState<string>('#000000');
@@ -44,8 +49,20 @@ const FistMaker: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
   
+  // Policy Modal
+  const handleOpenPolicyModal = () => setShowPolicyModal(true);
+  const handleClosePolicyModal = () => setShowPolicyModal(false);
+
+  // Report Modal
   const handleOpenErrorModal = () => setShowErrorModal(true);
   const handleCloseErrorModal = () => setShowErrorModal(false);
+
+  // About Modal 
+
+  const handleOpenAboutModal = () => setShowAboutModal(true);
+  const handleCloseAboutModal = () => setShowAboutModal(false);
+  const handleSelectTab = (tab: string) => setSelectedTab(tab);
+
 
   const handleErrorModalSubmit = async (email: string, message: string): Promise<void> => {
     if (message.length > 256) {
@@ -71,6 +88,7 @@ const FistMaker: React.FC = () => {
     } catch (error) {
     }
   };
+
 
   const handleBorderThicknessChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
@@ -210,9 +228,10 @@ const FistMaker: React.FC = () => {
         Скачать fist.png
       </a>
       <ErrorModal show={showErrorModal} onClose={handleCloseErrorModal} onSubmit={handleErrorModalSubmit} />
+      <AboutModal show={showAboutModal} onClose={handleCloseAboutModal} selectedTab={selectedTab} onSelectTab={handleSelectTab} />
       <span className={styles.prod}><img src={`${e}ts.svg`}/> + <img src={`${e}react.svg`}/> + <img src={`${e}vite.svg`}/> = © FistMaker 💙</span>
       <div className={styles.linksContainer}>
-        <span className={styles.linkProject}>О проекте</span>
+        <span className={styles.linkProject} onClick={handleOpenAboutModal}>О проекте</span>
         <span className={styles.linkDivider}>·</span>
         <span className={styles.linkFaq}>F.A.Q</span>
         <span className={styles.linkDivider}>·</span>
@@ -221,8 +240,18 @@ const FistMaker: React.FC = () => {
         </span>
       </div>
       <span>Используйте так же в: <a href='https://vk.com/fistmaker'>ВКонтакте</a> & <a href='https://t.me/FistMakerBot'>Telegram</a></span>
+      <span className={styles.link} onClick={handleOpenPolicyModal}><img src={`${e}policy.gif`}/>:Политика конфиденциальности</span>
       <span className={styles.link}><img src={`${e}git.png`}/>: <a href='https://github.com/SMamashin/fist-maker'>github.com/SMamashin/fist-maker</a></span>
       <span className={styles.link}><img src={`${e}bh.png`}/>: <a href='https://www.blast.hk/threads/200594/'>blast.hk/threads/200594/</a></span>
+      {showPolicyModal && (
+        <div className={styles.modal}>
+          <div className={styles.modalcontent}>
+            <h2>Политика Конфиденциальности FistMaker</h2>
+            <p> {PrivacyPolicy} </p>
+            <button onClick={handleClosePolicyModal}>Понятно</button>
+          </div>
+        </div>
+      )}
       <span className={styles.v}>{`v${version}`}<img src={`${e}spin.gif`}/></span>
     </div>
   );

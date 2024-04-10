@@ -1,7 +1,7 @@
 @font-face {
   font-family: "SF-Pro-Display-Bold";
   src:
-    url("../assets/SF-Pro-Display-Bold.otf") format("opentype")
+    url("https://fistmaker.ru/assets/SF-Pro-Display-Bold-CkqE-6tD.otf") format("opentype")
 }
 
 $color-background: #131313; // Фон body
@@ -76,7 +76,7 @@ span {
   width: 100%;
   height: 85px;
   margin-top: 1.25%;
-  background: url('../assets/FistMaker.png') no-repeat center center;
+  background: url('https://fistmaker.ru/assets/FistMaker.png') no-repeat center center;
   background-size: contain;
   
   @media (max-width: 767px) {
@@ -224,12 +224,18 @@ span {
 }
 
 .link {
+  color: #cdd9ff;
+  text-decoration: underline #fff;
   img {
     width: 18px;
     height: 18px;
     display: inline;
     vertical-align: middle;
     margin: 3px;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 }
 
@@ -254,10 +260,12 @@ span {
 }
 
 .linkProject {
-  color: #4a5058;
-  
+  display: inline-block;
+  color: #cdd9ff;
+
   &:hover {
-    cursor: not-allowed;
+    text-decoration: underline #fff;
+    cursor: pointer;
   }
 }
 
@@ -370,6 +378,60 @@ span {
 @keyframes fadeInOut {
   0%, 100% { opacity: 0; }
   10%, 90% { opacity: 1; }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); // Темный фон
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; // Чтобы модальное окно было поверх других элементов
+  
+  .modalcontent {
+    position: relative;
+    background-color: $color-background;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px; // Максимальная ширина модального окна
+    max-height: 80vh; // Максимальная высота модального окна
+    overflow-y: auto; // Добавляем прокрутку, если контент больше высоты модального окна
+
+    button {
+      border: none;
+      border-radius: 5px;
+      background-color: $color-button-background;
+      color: $color-text;
+      padding: 5px;
+
+      &:hover {
+        background-color: $color-button-hover;
+        cursor: pointer;
+      }
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    p {
+      line-height: 1.7; // Увеличение межстрочного интервала для лучшей читаемости
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .modal {
+    .modalcontent {
+      width: 90%; 
+      max-width: none; 
+    }
+  }
 }
 
 // -- Generate fist Button --
