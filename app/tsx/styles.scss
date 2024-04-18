@@ -17,6 +17,106 @@
     height: auto;
 }
 
+.donateBtn {
+    margin-top: 3%;
+    border: none;
+    max-width: 90%;
+}
+
+.author {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+    .know {
+        color: #808a93;
+        font-size: 14px;
+        line-height: 1.1px;
+
+    }
+
+    img {
+        width: 150px;
+        height: auto;
+    }
+
+    a {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        align-content: center;
+        font-size: 15px;
+        color: #2864b1;
+        text-decoration: none;
+        padding: 0px 60px 0px 60px;
+
+        img {
+            display: flex;
+            justify-content: space-between;
+            width: 29px;
+            height: 29px;
+            vertical-align: middle;
+            padding: 3.25px;
+        }
+
+        &:hover {
+            color: #a6a6a6;
+        }
+    }
+
+    .site {
+        margin-top: 2%;
+        background-color: #76c11e;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        padding: 3px;
+        width: 15%;
+
+        @media (max-width: 768px) {
+            width: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+
+    .git, .bh, .tg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #0d1117;
+        border: none;
+        border-radius: 25px;
+        width: 30%;
+        color: #fff;
+    }
+    .bh {
+        background-color: #3c3c3c;
+    }
+    .tg {
+        background-color: #289fd2;
+    }
+
+
+    .links {
+        display: flex;
+        justify-content: space-between;
+        margin: 3%;
+
+        @media (max-width: 1500px) {
+            flex-direction: column;
+            align-items: center;
+
+            .git, .bh, .tg {
+                width: 80%; // Или другой процент/фиксированное значение, чтобы соответствовать вашему дизайну
+                margin-bottom: 20px; // Добавить небольшой отступ между элементами
+            }
+        }
+    }
+}
+
 .people {
     background: linear-gradient(to right, #5482cd, #eef2fe, #b3c7fc, #34517d);
     background-size: 400% 400%;
@@ -39,4 +139,8 @@
     50% { background-position: 100% 50% }
     100% { background-position: 0% 50% }
 }
-  
+
+h2 {
+    margin-left: 0;
+    flex-grow: 1;
+}

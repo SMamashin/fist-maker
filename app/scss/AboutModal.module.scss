@@ -96,7 +96,7 @@
   padding: 5px;
 
   .banner {
-      width: 85%;
+      width: 90%;
       height: 35%;
       border-radius: 25px;
   }
@@ -107,6 +107,7 @@
   }
 
   .linkBtn {
+    padding: 10px;
     img {
       width: 175px;
       height: auto;
@@ -124,6 +125,7 @@
     }
   }
 
+
   span {
       font-size: 18px;
   }
@@ -133,7 +135,7 @@
   }
 
   hr {
-    width: 75%;
+    width: 100%;
   }
 }
  
@@ -163,10 +165,19 @@
   margin-left: 3px;
 }
 
+.statusIconDonate {
+  flex-shrink: 0;
+  width: 13px;
+  height: auto;
+  display: inline;
+  margin-left: 3px;
+}
+
+
 @media (max-width: 768px) {
   .modal {
-    width: 90%;
-    height: 75%;
+    width: 95%;
+    height: 85%;
     flex-direction: column;
     max-width: 1000px; 
   }
@@ -181,13 +192,23 @@
     margin-left: 20px;
     padding: 0;
 
+    .banner {
+      display: none;
+    }
+
+    .logo {
+      width: 60px;
+      height: auto;
+    }
+
     span, h2 {
       font-size: 14px;
     }
 
     hr {
-      width: auto;
+      width: 60%;
     }
+
   }
 
   .closeButton {

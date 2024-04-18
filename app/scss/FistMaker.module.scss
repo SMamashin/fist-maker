@@ -49,6 +49,7 @@ body::before {
 
 a {
   color: $color-text;
+  text-decoration: none;
   
   &:hover {
     text-decoration: underline 2px $color-text-hover;
@@ -225,7 +226,7 @@ span {
 
 .link {
   color: #cdd9ff;
-  text-decoration: underline #fff;
+  text-decoration: none;
   img {
     width: 18px;
     height: 18px;
@@ -236,6 +237,7 @@ span {
 
   &:hover {
     cursor: pointer;
+    text-decoration: underline #fff;
   }
 }
 
@@ -386,7 +388,7 @@ span {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7); // Темный фон
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -420,7 +422,7 @@ span {
     }
 
     p {
-      line-height: 1.7; // Увеличение межстрочного интервала для лучшей читаемости
+      line-height: 1.7;
     }
   }
 }

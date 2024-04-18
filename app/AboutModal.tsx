@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './scss/AboutModal.module.scss';
 import { version } from '../package.json';
 import FistMakerPrice from './tsx/Price';
+import FistMakerDonate from './tsx/Donate';
+import FistMakerAuthor from './tsx/Author';
 
 interface AboutModalProps {
   show: boolean;
@@ -31,7 +33,7 @@ const FistMakerProject =
         Вы можете воспользоваться ботами по этим кнопкам: <br/> <br/>
         <a className={styles.linkBtn} href='#'><img src={`${a}vk.png`}/></a>
         <a className={styles.linkBtn} href='#'><img src={`${a}tg.png`}/></a>
-      </span>
+      </span> <br /> <br />
     </>
 
 const AboutModal: React.FC<AboutModalProps> = ({ show, onClose, selectedTab, onSelectTab }) => {
@@ -60,6 +62,9 @@ const AboutModal: React.FC<AboutModalProps> = ({ show, onClose, selectedTab, onS
           <div className={tabClasses('Author')} onClick={() => onSelectTab('Author')}>Автор
             <img className={styles.statusIcon} src={`${e}author.gif`} />
           </div>
+          <div className={tabClasses('Donate')} onClick={() => onSelectTab('Donate')}>Donate
+            <img className={styles.statusIconDonate} src={`${e}donate.svg`} />
+          </div>
           <div className={styles.vModal}>{`v${version}`}<img src={`${e}spin.gif`}/></div>
         </div>
         <div className={styles.content}>
@@ -67,7 +72,8 @@ const AboutModal: React.FC<AboutModalProps> = ({ show, onClose, selectedTab, onS
           {selectedTab === 'FistMaker' && FistMakerProject}
           {selectedTab === 'Development' && <p>Содержимое появится позже... <img className='icon' src={`${e}wait.svg`}/></p>}
           {selectedTab === 'Price' && FistMakerPrice}
-          {selectedTab === 'Author' && <p>Содержимое появится позже... <img className='icon' src={`${e}wait.svg`}/></p>}
+          {selectedTab === 'Author' && FistMakerAuthor}
+          {selectedTab === 'Donate' && FistMakerDonate}
         </div>
       </div>
     </div>
