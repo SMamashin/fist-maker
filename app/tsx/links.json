@@ -1,0 +1,65 @@
+{
+  "developmentTechnologies": [
+    {
+      "name": "TypeScript / TSX",
+      "src": "https://fistmaker.ru/assets/emoji/ts.svg",
+      "url": "https://www.typescriptlang.org/",
+      "style": "ts-logo"
+    },
+    {
+      "name": "React",
+      "src": "https://fistmaker.ru/assets/emoji/react.svg",
+      "url": "https://react.dev/"
+    },
+    {
+      "name": "SASS/SCSS",
+      "src": "https://fistmaker.ru/assets/emoji/sass.png",
+      "url": "https://sass-lang.com/",
+      "style": "sass-logo"
+    },
+    {
+      "name": "Vite builder",
+      "src": "https://fistmaker.ru/assets/emoji/vite.svg",
+      "url": "https://vitejs.dev/",
+      "style": "vite-logo"
+    }
+  ],
+  "developmentTools": [
+    {
+      "name": "WebShtorm",
+      "src": "https://fistmaker.ru/assets/emoji/ws.png",
+      "url": "https://www.jetbrains.com/ru-ru/webstorm/",
+      "style": "shtorm-logo"
+    },
+    {
+      "name": "Visual Studio Code",
+      "src": "https://fistmaker.ru/assets/emoji/vsc.png",
+      "url": "https://code.visualstudio.com/",
+      "style": "vs-logo"
+    },
+    {
+      "name": "Google Search",
+      "src": "https://fistmaker.ru/assets/emoji/google.png",
+      "url": "https://google.com/",
+      "style": "google-logo"
+    },
+    {
+      "name": "GitHub",
+      "src": "https://fistmaker.ru/assets/emoji/git.png",
+      "url": "https://github.com/",
+      "style": "github-logo"
+    },
+    {
+      "name": "Photoshop",
+      "src": "https://fistmaker.ru/assets/emoji/photoshop.svg",
+      "url": "https://www.adobe.com/ru/products/photoshop.html",
+      "style": "photoshop-logo"
+    },
+    {
+      "name": "neverlane",
+      "src": "https://fistmaker.ru/assets/emoji/egor.jpg",
+      "url": "https://neverlane.one/",
+      "style": "egor"
+    }
+  ]
+}

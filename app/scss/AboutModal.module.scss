@@ -51,7 +51,15 @@
   color: #fff;
   border-radius: 100px;
 }
-    
+  
+//   .headerImage {
+//     height: 300px;
+//     width: 100%; 
+//     background: url('https://fistmaker.ru/assets/banner.jpg') no-repeat center center;
+//     background-size: cover;
+//     border-radius: 5px 5px 0 0;
+//   }
+  
 .tabContainer {
   text-align: center;
   display: flex;
@@ -155,6 +163,15 @@
   height: auto;
   display: inline;
   margin-left: 3px;
+  vertical-align: middle;
+}
+
+.statusIconCheck {
+  flex-shrink: 0;
+  width: 20px;
+  height: auto;
+  display: inline;
+  margin-left: 3px;
 }
 
 .statusIconDonate {
@@ -206,7 +223,7 @@
   .closeButton {
       margin-right: 0;
       right: -10px;
-      background-color: none;
+      background-color: transparent;
       font-size: 20px;
   }
 }

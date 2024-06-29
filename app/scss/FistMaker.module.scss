@@ -9,9 +9,9 @@ $color-text: #cdd9ff; // Цвет текста ссылок и некоторы�
 $color-text-hover: #fff; // Цвет текста ссылок при наведении
 $color-scrollbar-track: #141414; // Фон трека полосы прокрутки
 $color-scrollbar-thumb: #292828; // Фон ползунка полосы прокрутки
-$color-input-background: #39404a; // Фон для input элементов
+$color-input-background: #2d333a; // Фон для input элементов
 $color-input-border: #718093; // Граница для input элементов
-$color-button-background: #546e7a; // Фон кнопок
+$color-button-background: #3b5a7e; // Фон кнопок
 $color-button-hover: #2e4560; // Фон кнопок при наведении
 $color-slider-thumb: #546e7a; // Фон ползунка слайдера
 $color-slider-thumb-active: #3b5a7e; // Фон активного ползунка слайдера
@@ -134,14 +134,26 @@ span {
     display: block;
     width: 15%;
     outline: none;
+
+    &:hover {
+      box-shadow: 0px 0px 10px #1f84f8;
+    }
     
     &::file-selector-button {
       background-color: $color-button-background;
+      box-shadow: 0px 0px 7px $color-button-background;
       border: none;
       padding: 10px 15px;
       border-radius: 5px;
       margin-right: 10px;
       color: #ffffff;
+
+      &:hover {
+        background-color: #1f84f8;
+        box-shadow: 0px 0px 10px #1f84f8;
+        transition: box-shadow .5s ease;
+        cursor: pointer;
+      }
     }
   }
   
@@ -181,13 +193,14 @@ span {
   color: #fff;
   margin-top: 10px;
   margin-bottom: 15px;
-  background-color: #3b5a7e;
+  background-color: $color-button-background;
   padding: 10px 20px;
   border-radius: 5px;
   transition: background-color 0.3s ease;
   
   &:hover {
-    background-color: #2e4560;
+    background-color: #1f84f8;
+    box-shadow: 0px 0px 10px #1f84f8;
     text-decoration: none;
     cursor: pointer;
   }
@@ -206,6 +219,7 @@ span {
 }
 
 .prod {
+  margin: 7px 0 7px 0;
   img {
     width: 15px;
     height: 15px;
@@ -242,7 +256,10 @@ span {
 }
 
 .linksContainer {
-  text-align: center; 
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.8%;
+  margin-top: 0.8%;
 }
 
 
@@ -252,31 +269,83 @@ span {
 }
 
 .sendError {
-  display: inline-block;
-  color: #cdd9ff;
+  color: #fff;
+  background-color: #3b5a7e;
+  box-shadow: 0px 0px 7px #3b5a7e;
+  padding: 2px 5px 2px 5px;
+  border: none;
+  border-radius: 25px;
 
   &:hover {
-    text-decoration: underline #fff;
-    cursor: grab;
-  }
-}
-
-.linkProject {
-  display: inline-block;
-  color: #cdd9ff;
-
-  &:hover {
-    text-decoration: underline #fff;
+    background-color: #1f84f8;
+    box-shadow: 0px 0px 8px #1f84f8;
     cursor: pointer;
   }
 }
 
-.linkFaq {
-  color: #4a5058;
+.linkProject {
+  color: #fff;
+  background-color: #3b5a7e;
+  box-shadow: 0px 0px 7px #3b5a7e;
+  padding: 2px 5px 2px 5px;
+  border: none;
+  border-radius: 25px;
 
   &:hover {
-    cursor: not-allowed;
+    background-color: #1f84f8;
+    box-shadow: 0px 0px 8px #1f84f8;
+    cursor: pointer;
   }
+}
+
+
+.linkFaq{
+  color: #fff;
+  background-color: #3b5a7e;
+  box-shadow: 0px 0px 7px #3b5a7e;
+  padding: 2px 5px 2px 5px;
+  border: none;
+  border-radius: 25px;
+
+  &:hover {
+    background-color: #1f84f8;
+    box-shadow: 0px 0px 8px #1f84f8;
+    cursor: pointer;
+  }
+}
+
+//.linkFaq {
+//  color: #949698;
+//  background-color: #39404a;
+//  padding: 2px 5px 2px 5px;
+//  border: none;
+//  border-radius: 25px;
+//
+//  &:hover {
+//    //background-color: #1f84f8;
+//    cursor: not-allowed;
+//  }
+//}
+
+@media (max-width: 768px) {
+  .linksContainer {
+    display: inline-flex;
+    align-content: center;
+  }
+  .sendError, .linkProject, .linkFaq {
+    font-size: 12px;
+    align-content: center;
+  }
+}
+
+.footerLinks {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #2d333a;
+  padding: 2px 5px 2px 5px;
+  border: none;
+  border-radius: 25px;
 }
 
 .borderThicknessSlider {
@@ -315,12 +384,14 @@ span {
 
   &:active::-webkit-slider-thumb {
     background: $color-slider-thumb-active;
+    box-shadow: 0px 0px 10px #1f84f8;
   }
 
   &:active::-moz-range-thumb {
     background: $color-slider-thumb-active;
   }
 }
+
 
 .borderThicknessValue {
   display: inline-block;
@@ -355,17 +426,17 @@ span {
 }
 
 .notify {
-  margin-top: .5%;
+  margin-top: .7%;
   position: fixed;
-  top: 20px;
+  top: 0px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10000;
   padding: 10px 20px;
   background-color: $color-notify-background;
+  box-shadow: 0 0 10px #1f84f8;
   color: white;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
   animation: fadeInOut 5s;
   
   img {

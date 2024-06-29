@@ -15,7 +15,7 @@
   background: #2b2b2b;
   color: #fff;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 25px;
   position: relative;
   max-width: 600px;
   width: 80%;
@@ -27,22 +27,14 @@
 
 .closeButton {
   position: absolute;
-  top: 3px;
-  right: 3px;
-  background: none;
+  top: -20px;
+  right: -20px;
+  background: transparent;
   border: none;
-  font-size: 1.5rem;
-  color: #3081dd;
-  border: #1f6fc9 2px solid;
+  font-size: 1.8rem;
+  color: #fff;
   border-radius: 10px;
-  padding: 1px 5px 1px 5px;
   cursor: pointer;
-
-  &:hover {
-    color: #68aaf6;
-    background-color: rgba(112, 111, 111, 0.561);
-    border: #1f84f8 2px solid;
-  }
 }
 
 .modalContent {
@@ -64,27 +56,24 @@ textarea {
 }
 
 .submitButton {
-  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
   background-color: #3b5a7e;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  max-width: 100%;
-  width: auto;
+  margin: 5px auto;
+  width: 30%;
   
   &:hover {
     background-color: #5486c0;
-    color: rgb(243, 241, 241);
-    border-radius: 6px;
+    color: #fff;
   }
 
-  @media (min-width: 768px) {
-    width: 50%;
+  @media (max-width: 768px) {
+    width: 20%;
   }
 }
 
@@ -95,8 +84,8 @@ textarea {
   }
 
   .closeButton {
-    top: 5px;
-    right: 5px;
+    top: -20px;
+    right: -15px;
   }
 
   .modalContent {

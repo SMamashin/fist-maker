@@ -4,6 +4,7 @@ import { version } from '../package.json';
 import FistMakerPrice from './tsx/Price';
 import FistMakerDonate from './tsx/Donate';
 import FistMakerAuthor from './tsx/Author';
+import FistMakerDevelopment from "./tsx/Dev.tsx";
 
 interface AboutModalProps {
   show: boolean;
@@ -31,8 +32,8 @@ const FistMakerProject =
       <h2>Использовать <img className={styles.logo} src={`${a}FistMaker.png`}/> в ВКонтакте и Telegram</h2>
       <span>
         Вы можете воспользоваться ботами по этим кнопкам: <br/> <br/>
-        <a className={styles.linkBtn} href='#'><img src={`${a}vk.png`}/></a>
-        <a className={styles.linkBtn} href='#'><img src={`${a}tg.png`}/></a>
+        <a className={styles.linkBtn} href='https://vk.com/fistmaker' target="_blank"><img src={`${a}vk.png`}/></a>
+        <a className={styles.linkBtn} href='https://t.me/FistMakerBot' target="_blank"><img src={`${a}tg.png`}/></a>
       </span> <br /> <br />
     </>
 
@@ -51,7 +52,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ show, onClose, selectedTab, onS
         <div className={styles.headerImage}></div>
         <div className={styles.tabContentContainer}>
           <div className={tabClasses('FistMaker')} onClick={() => onSelectTab('FistMaker')}><img className={styles.FistMakerTab} src="https://fistmaker.ru/assets/FistMaker.png"/>
-            <img className={styles.statusIcon} src={`${e}check.svg`} />
+            <img className={styles.statusIconCheck} src={`${e}check.svg`} />
           </div>
           <div className={tabClasses('Development')} onClick={() => onSelectTab('Development')}>Разработка 
             <img className={styles.statusIcon} src={`${e}dev.gif`} />
@@ -68,9 +69,8 @@ const AboutModal: React.FC<AboutModalProps> = ({ show, onClose, selectedTab, onS
           <div className={styles.vModal}>{`v${version}`}<img src={`${e}spin.gif`}/></div>
         </div>
         <div className={styles.content}>
-          {/* Содержимое для каждой вкладки */}
           {selectedTab === 'FistMaker' && FistMakerProject}
-          {selectedTab === 'Development' && <p>Содержимое появится позже... <img className='icon' src={`${e}wait.svg`}/></p>}
+          {selectedTab === 'Development' && FistMakerDevelopment}
           {selectedTab === 'Price' && FistMakerPrice}
           {selectedTab === 'Author' && FistMakerAuthor}
           {selectedTab === 'Donate' && FistMakerDonate}

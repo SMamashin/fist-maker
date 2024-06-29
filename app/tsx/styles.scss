@@ -7,9 +7,70 @@
 }
 
 .container {
-    line-height: 1.9;
+    line-height: 2;
     padding: 25px;
-    // padding-left: 20px;
+    font-size: 15px;
+    .img-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            width: 35px;
+            height: auto;
+            margin: 0 15px 0 15px;
+
+            &:hover {
+                filter: blur(0.4px) drop-shadow(0 0 0.30rem #1f84f8);
+                cursor: pointer;
+            }
+        }
+
+        .ts-logo {
+            filter: drop-shadow(0 0 0.55rem #1f84f8);
+            border-radius: 6.5px;
+        }
+        .react-logo {
+            animation: react 10s infinite linear;
+            filter: drop-shadow(0 0 0.75rem #00bbd3);
+        }
+        .sass-logo {
+            filter: drop-shadow(0 0 0.75rem #be628f);
+        }
+        .vite-logo {
+            filter: drop-shadow(0 0 0.75rem #837eff);
+        }
+        .shtorm-logo {
+            filter: drop-shadow(0 0 0.55rem #09b7d7);
+        }
+        .vs-logo {
+            filter: drop-shadow(0 0 0.75rem #0179cb);
+        }
+        .google-logo {
+            filter: drop-shadow(0 0 0.55rem #dcdcdc);
+        }
+        .github-logo {
+            filter: drop-shadow(0 0 0.55rem #cdcdcd);
+        }
+        .photoshop-logo {
+            filter: drop-shadow(0 0 0.75rem #001e36);
+        }
+        .egor {
+            border-radius: 10px;
+            filter: drop-shadow(0 0 0.75rem #3959a1);
+        }
+        @media (max-width: 768px) {
+            img {
+                width: 25px;
+            }
+        }
+    }
+    .info-later {
+        color: #7c7c7c;
+    }
+    .donate {
+        color: #9c9c9c;
+    }
 }
 
 .stepan {
@@ -60,10 +121,6 @@
             vertical-align: middle;
             padding: 3.25px;
         }
-
-        &:hover {
-            color: #a6a6a6;
-        }
     }
 
     .site {
@@ -74,6 +131,10 @@
         border-radius: 25px;
         padding: 3px;
         width: 15%;
+
+        &:hover {
+            opacity: 0.8;
+        }
 
         @media (max-width: 768px) {
             width: auto;
@@ -91,6 +152,11 @@
         border-radius: 25px;
         width: 30%;
         color: #fff;
+
+        &:hover {
+            color: #d1d1d1;
+            opacity: 0.8;
+        }
     }
     .bh {
         background-color: #3c3c3c;
@@ -110,10 +176,15 @@
             align-items: center;
 
             .git, .bh, .tg {
-                width: 80%; // Или другой процент/фиксированное значение, чтобы соответствовать вашему дизайну
-                margin-bottom: 20px; // Добавить небольшой отступ между элементами
+                width: 80%;
+                margin-bottom: 20px;
             }
         }
+    }
+    .checkIcon {
+        width: 20px;
+        height: auto;
+        vertical-align: middle;
     }
 }
 
@@ -127,6 +198,7 @@
     font-size: 25px;
     line-height: 25px;
 }
+
 
 @-webkit-keyframes people{
     0% { background-position: 0% 50% }
@@ -143,4 +215,13 @@
 h2 {
     margin-left: 0;
     flex-grow: 1;
+}
+
+@keyframes react {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(720deg);
+    }
 }
