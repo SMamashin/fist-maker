@@ -187,7 +187,7 @@ const FistMaker: React.FC = () => {
     <div className={styles.container}>
       <h1 className={styles.header}></h1>
       <div className={styles.controls}>
-      {Notification && (<div className={styles.notify}><img src={`${e}fire.gif`}/>{`v${version} - Уменьшен размер фиста`}</div>)}
+      {Notification && (<div className={styles.notify}><img src={`${e}give_donate.svg`}/>{`Вы можете поддержать проект во вкладе "О проекте"`}</div>)}
       {isReportSent && (<div className={styles.notification}>Ваше сообщение отправлено! Спасибо.</div>)}
         <div className={styles.group}>
           <label htmlFor="imageInput">Выберите картинку:</label>
